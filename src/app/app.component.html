@@ -1,11 +1,15 @@
 <div class="container">
   <app-time-picker #child></app-time-picker>
 
-  <div *ngIf="child.diff > 0; else isNegative">
 
-    <h1>Untill <strong *ngIf="child.date; else isntChosen">{{ child.date | date:'d MMM yyyy'}}</strong> left
-      <ng-template #isntChosen><strong>chosen date</strong></ng-template>
-    </h1>
+
+  <div *ngIf="child.diff; else isNull">
+
+    <h1 *ngIf="child.diff > 0; else isNegative">Untill <strong>{{ child.date | date:'d MMM yyyy'}}</strong> left </h1>
+
+    <ng-template #isNegative>
+      <h1> Since <strong *ngIf="child.diff">{{ child.date | date:'d MMM yyyy'}}</strong> passed on </h1>
+    </ng-template>
 
     <h2 class="left"
         [ngSwitch]="child.restDays">
@@ -42,45 +46,6 @@
 
   </div>
 
-  <ng-template #isNegative>
-
-    <h1>Since <strong *ngIf="child.date; else isntChosen">{{ child.date | date:'d MMM yyyy'}}</strong> passed on
-      <ng-template #isntChosen><strong>chosen date</strong></ng-template>
-    </h1>
-
-    <h2 class="left"
-        [ngSwitch]="child.restDays">
-      <ng-template ngSwitchCase="0"></ng-template>
-      <ng-template ngSwitchCase="1">
-        {{child.restDays}} day
-      </ng-template>
-      <ng-template ngSwitchDefault>
-        {{child.restDays}} days
-      </ng-template>
-    </h2>
-
-    <h2 class="left"
-        [ngSwitch]="child.restHours">
-      <ng-template ngSwitchCase="0"></ng-template>
-      <ng-template ngSwitchCase="1">
-        {{child.restHours}} hour
-      </ng-template>
-      <ng-template ngSwitchDefault>
-        {{child.restHours}} hours
-      </ng-template>
-    </h2>
-
-    <h2 class="left"
-        [ngSwitch]="child.restMinutes">
-      <ng-template ngSwitchCase="0"></ng-template>
-      <ng-template ngSwitchCase="1">
-        {{child.restMinutes}} minute
-      </ng-template>
-      <ng-template ngSwitchDefault>
-        {{child.restMinutes}} minutes
-      </ng-template>
-    </h2>
-
+  <ng-template #isNull>
+    <h1>Choose a date, please</h1>
   </ng-template>
-
-</div>
