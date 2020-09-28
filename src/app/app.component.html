@@ -1,8 +1,6 @@
 <div class="container">
   <app-time-picker #child></app-time-picker>
 
-
-
   <div *ngIf="child.diff; else isNull">
 
     <h1 *ngIf="child.diff > 0; else isNegative">Untill <strong>{{ child.date | date:'d MMM yyyy'}}</strong> left </h1>
